@@ -103,7 +103,7 @@ sided keys add wallet
 sided keys add wallet --recover
 ```
 
-### We receive tokens from the tap in the discord(https://discord.com/invite/BfEHpm6uFc)
+### We receive tokens from the tap in the [discord](https://discord.com/invite/BfEHpm6uFc)
 
 Go to the #testnet-faucet branch and specify your side wallet $request side-testnet-2 (side....)
 
