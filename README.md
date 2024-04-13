@@ -43,30 +43,37 @@ go version
 ### Download and build binaries
 ```
 cd $HOME
-rm -rf sidechain
-git clone -b dev https://github.com/sideprotocol/sidechain.git
+cd && rm -rf sidechain
+git clone https://github.com/sideprotocol/sidechain.git
 cd sidechain
-git checkout v0.6.0
+git checkout v0.7.0-rc2
 make install
 sided version
 ```
 
 # Initialize the node
 ```
-sided init YOUR MONIKER --chain-id=side-testnet-2
+sided config chain-id side-testnet-3
+sided config keyring-backend test
+sided config node tcp://localhost:26357
+sided init "Your Node Name" --chain-id side-testnet-3
 ```
 
 # Download genesis and addrbook files
 ```
-curl -Ls https://ss-t.side.nodestake.org/genesis.json > $HOME/.side/config/genesis.json 
-curl -Ls https://ss-t.side.nodestake.org/addrbook.json > $HOME/.side/config/addrbook.json
+curl -L https://snapshots-testnet.nodejumper.io/side-testnet/genesis.json > $HOME/.side/config/genesis.json
+curl -L https://snapshots-testnet.nodejumper.io/side-testnet/addrbook.json > $HOME/.side/config/addrbook.json
 ```
 
 # Download latest chain data snapshot
 ```
-SNAP_NAME=$(curl -s https://ss-t.side.nodestake.org/ | egrep -o ">20.*\.tar.lz4" | tr -d ">")
-curl -o - -L https://ss-t.side.nodestake.top/${SNAP_NAME}  | lz4 -c -d - | tar -x -C $HOME/.side
+curl "https://snapshots-testnet.nodejumper.io/side-testnet/side-testnet_latest.tar.lz4" | lz4 -dc - | tar -xf - -C "$HOME/.side"
 ```
+# Set seeds
+```
+sed -i -e 's|^seeds *=.*|seeds = "6decdc5565bf5232cdf5597a7784bfe828c32277@158.220.126.137:11656,e9ee4fb923d5aab89207df36ce660ff1b882fc72@136.243.33.177:21656,9c14080752bdfa33f4624f83cd155e2d3976e303@side-testnet-seed.itrocket.net:45656"|' $HOME/.side/config/config.toml
+```
+
 
 # Create a service
 ```
@@ -85,8 +92,10 @@ WantedBy=multi-user.target
 EOF
 sudo systemctl daemon-reload
 sudo systemctl enable sided
+```
 
 # Start the service and check the logs
+```
 sudo systemctl restart sided
 journalctl -u sided -f
 ```
@@ -105,7 +114,7 @@ sided keys add wallet --recover
 
 ### We receive tokens from the tap in the [discord](https://discord.com/invite/BfEHpm6uFc)
 
-Go to the #testnet-faucet branch and specify your side wallet $request side-testnet-2 (side....)
+Go to the #testnet-faucet branch and specify your side wallet $request side-testnet-3 (side....)
 
 ### Create the Validator
 
@@ -144,8 +153,8 @@ sided tx staking create-validator \
 ```
 There have been no updates at the moment, as soon as they come out, we will immediately add them to this section.
 
-Current network:side-testnet-2 
-Current version:v0.6.0
+Current network:side-testnet-3 
+Current version:v0.7.0-rc2
 ```
 
 ### Useful commands
