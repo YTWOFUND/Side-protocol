@@ -5,10 +5,18 @@ Side Protocol Node Installation Instructions </br>
 ### [Official site](https://side.one)
 
 ### System requirements: </br>
-CPU: 4 Core </br>
-RAM: 8 Gb </br>
-SSD: 200 Gb </br>
-OS: Ubuntu 20.04 LTS </br>
+
+Minimum Requirements
+CPU: 4 cores
+RAM: 8 GB
+Storage: 500 GB
+Network: 1 Gbps
+
+Recommended Specifications
+CPU: 8 cores
+RAM: 16 GB
+Storage: 800 GB
+Network: 1 Gbps
 
 ### Network configurations: </br>
 Outbound - allow all traffic </br>
