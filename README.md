@@ -53,45 +53,33 @@ go version
 cd $HOME && mkdir -p go/bin/
 git clone https://github.com/sideprotocol/side.git
 cd side
-git checkout v0.8.1
+git checkout v0.9.0
 make install
-
 ```
 
 # Initialize the node
 ```
-sided init NODENAME --chain-id=S2-testnet-2
-sided config chain-id S2-testnet-2
+sided init NODENAME --chain-id=grimoria-testnet-1
+sided config chain-id grimoria-testnet-1
 ```
 
 # Download genesis files
 ```
-wget https://github.com/sideprotocol/testnet/raw/main/S2-testnet-2/genesis.json -O ~/.side/config/genesis.json
+wget https://raw.githubusercontent.com/sideprotocol/testnet/main/grimoria-testnet-1/genesis.json -O $HOME/.side/config/genesis.json
 ```
 
 # Set seeds and peears
 ```
-peers="15f2a9dd8f903ef2894744f9fb3385deceb48c10@84.247.129.32:28656,9c14080752bdfa33f4624f83cd155e2d3976e303@65.108.231.124:45656,c13aa9de83b85825e2a773ab8ab1c0d4f749f38c@94.72.116.155:26656,65a8c4d4ec822cc95f4c3d1d017e9bf4721b8c6c@65.109.82.230:22656,d5519e378247dfb61dfe90652d1fe3e2b3005a5b@65.109.68.190:17456,ed87aea1ec989f81e5a14d629d343408d511a1a4@52.6.127.41:26656,5c2a752c9b1952dbed075c56c600c3a79b58c395@195.3.220.21:27516,5adabb1ff9c94807e0e1d986705bfb9dd608c3b9@138.201.51.154:53004"
-sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$peers\"|" $HOME/.side/config/config.toml
 sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.005uside\"/;" ~/.side/config/app.toml
 external_address=$(wget -qO- eth0.me) 
 sed -i.bak -e "s/^external_address *=.*/external_address = \"$external_address:26656\"/" $HOME/.side/config/config.toml
-peers=""
+peers="6bef0693d7a31fed473b95123ad19b544b414093@202.182.119.24:26656,44f8009ed91fddd7ee51117482ede20fb4f33e78@149.28.156.79:26656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" $HOME/.side/config/config.toml
-seeds="582dedd866dd77f25ac0575118cf32df1ee50f98@202.182.119.24:26656"
+seeds=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$seeds\"/" $HOME/.side/config/config.toml
 sed -i 's/max_num_inbound_peers =.*/max_num_inbound_peers = 50/g' $HOME/.side/config/config.toml
 sed -i 's/max_num_outbound_peers =.*/max_num_outbound_peers = 50/g' $HOME/.side/config/config.toml
-pruning="custom"
-pruning_keep_recent="1000"
-pruning_keep_every="0"
-pruning_interval="10"
-sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/.side/config/app.toml
-sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/.side/config/app.toml
-sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/.side/config/app.toml
-sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/.side/config/app.toml
-indexer="null" &&
-sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/.side/config/config.toml
+wget -O $HOME/.side/config/addrbook.json "https://snap1.konsortech.xyz/side-testnet/addrbook.json"
 ```
 
 
@@ -159,7 +147,7 @@ sided tx staking create-validator \
 --pubkey $(sided tendermint show-validator) \
 --from <adresswallet> \
 --moniker="YOUR NICK" \
---chain-id S2-testnet-2 \
+--chain-id grimoria-testnet-1 \
 --identity="" \
 --website="" \
 --details=""
@@ -169,12 +157,12 @@ sided tx staking create-validator \
 -y
 ```
 
-### Update
+### Upgrade
 ```
 There have been no updates at the moment, as soon as they come out, we will immediately add them to this section.
 
-Current network:S2-testnet-2
-Current version:v0.8.1
+Current network:grimoria-testnet-1
+Current version:v0.9.0
 ```
 
 ### Useful commands
