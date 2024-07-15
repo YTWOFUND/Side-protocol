@@ -68,6 +68,20 @@ sided config chain-id grimoria-testnet-1
 wget https://raw.githubusercontent.com/sideprotocol/testnet/main/grimoria-testnet-1/genesis.json -O $HOME/.side/config/genesis.json
 ```
 
+# Install snapshot
+```
+cd $HOME
+apt install lz4
+sudo systemctl stop sided
+cp $HOME/.side/data/priv_validator_state.json $HOME/.side/priv_validator_state.json.backup
+rm -rf $HOME/.side/data
+curl -o - -L https://side-t.snapshot.stavr.tech/side-snap.tar.lz4 | lz4 -c -d - | tar -x -C $HOME/.side --strip-components 2
+curl -o - -L https://side-t.wasm.stavr.tech/wasm-side.tar.lz4 | lz4 -c -d - | tar -x -C $HOME/.side --strip-components 2
+mv $HOME/.side/priv_validator_state.json.backup $HOME/.side/data/priv_validator_state.json
+wget -O $HOME/.side/config/addrbook.json "https://raw.githubusercontent.com/111STAVR111/props/main/Side/addrbook.json"
+sudo systemctl restart sided && journalctl -u sided -f -o cat
+```
+
 # Set seeds and peears
 ```
 sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.005uside\"/;" ~/.side/config/app.toml
