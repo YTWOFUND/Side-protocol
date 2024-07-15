@@ -203,7 +203,7 @@ sided status 2>&1 | jq .ValidatorInfo
 
 DELEGATE TOKENS TO YOURSELF
 ```
-sided tx staking delegate Your_valpoer........ "100000000"uside --from Wallet_Name --gas 350000 --chain-id=S2-testnet-1 -y
+sided tx staking delegate Your_valpoer........ "100000000"uside --from Wallet_Name --gas 350000 --grimoria-testnet-1 -y
 ```
 
 REMOVE NODE
