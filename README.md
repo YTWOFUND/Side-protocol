@@ -93,7 +93,7 @@ seeds=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$seeds\"/" $HOME/.side/config/config.toml
 sed -i 's/max_num_inbound_peers =.*/max_num_inbound_peers = 50/g' $HOME/.side/config/config.toml
 sed -i 's/max_num_outbound_peers =.*/max_num_outbound_peers = 50/g' $HOME/.side/config/config.toml
-wget -O $HOME/.side/config/addrbook.json "https://snap1.konsortech.xyz/side-testnet/addrbook.json"
+curl -Ls https://snapshots.kjnodes.com/side-testnet/addrbook.json > $HOME/.side/config/addrbook.json
 ```
 
 
@@ -135,7 +135,8 @@ sided keys add <walletname> --key-type="segwit"
 sided keys add <walletname> --key-type="segwit" --recover
 ```
 
-### We receive tokens from the tap in the [faucet](https://testnet.side.one/faucet)
+### We receive tokens from the tap in the [faucet](https://station-test.side.one/faucet)
+
 
 ### Create the Validator
 
